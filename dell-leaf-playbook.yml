@@ -1,0 +1,22 @@
+---
+- hosts: all
+  remote_user: root
+  vars:
+  tasks:
+  - name:  copy daemons file in /etc/quagga 
+    sudo:  yes
+    template:  src=quagga.daemons_file dest=/etc/quagga/daemons
+
+  - name:  copy Leaf 1 Interfaces file 
+    sudo:  yes
+    copy:  src=leaf-1-interfaces dest=/etc/network/interfaces
+    when:  inventory_hostname == "leaf-1"
+
+  - name:  copy Leaf 2 Interfaces file 
+    sudo:  yes
+    copy:  src=leaf-2-interfaces dest=/etc/network/interfaces
+    when:  inventory_hostname == "leaf-2"  
+
+  - name:  Reload interfaces file
+    sudo:  yes
+    command: /sbin/ifreload -a 
