@@ -65,12 +65,14 @@ iface host1
     clag-id 1
     mstpctl-portadminedge yes
     mstpctl-bpduguard yes
+    mtu 9216
 
 auto br0
 iface br0
     bridge-vlan-aware yes
     bridge-ports peerlink host1 swp4 swp5
     bridge-stp on
-    bridge-vids 101, 201, 301, 401, 501 
+    bridge-vids 101 201 301 401 501 
     bridge-pvid 1
     mstpctl-treeprio 8192
+    mtu 9216
